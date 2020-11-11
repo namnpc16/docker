@@ -1,0 +1,78 @@
+version: '3'
+
+services:
+  env_php:
+    container_name: env_php
+    build:
+      context: ./php-fpm
+      args:
+        - PUID=${PHP_FPM_PUID}
+        - PGID=${PHP_FPM_PGID}
+    volumes:
+      - ${APP_CODE_PATH_HOST}:/var/www/app/
+    expose:
+      - 9000
+    ports:
+      - 48068:8000
+    stdin_open: true
+    tty: true
+    networks:
+      - external
+      - internal
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+  env_db:
+    image: mysql:5.7
+    container_name: env_db
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      #- TZ=${WORKSPACE_TIMEZONE}
+    expose:
+      - 3306
+    ports:
+      - ${MYSQL_PORT}:3306
+    volumes:
+      - ../data/mysql:/var/lib/mysql
+    networks:
+      - internal
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+  env_nginx:
+    container_name: env_nginx
+    build:
+      context: ./nginx
+      args:
+        - PHP_UPSTREAM_CONTAINER=env_php
+        - PHP_UPSTREAM_PORT=9000
+    volumes:
+      - ${APP_CODE_PATH_HOST}:/var/www/app
+      - ./nginx/sites:/etc/nginx/sites-available
+      - ../data/nginx/log:/var/log/nginx
+    depends_on:
+      - env_php
+    ports:
+      - 48011:80
+    networks:
+      - external
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+  env_adminer:
+    container_name: env_adminer
+    image: clue/adminer
+    restart: always
+    ports:
+      - 48336:80
+    networks:
+      - external
+      - internal
+networks:
+  external:
+    driver: bridge
+  internal:
+    driver: bridge

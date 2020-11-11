@@ -1,0 +1,15 @@
+input.form-control.inpusearch {
+    height: 36px;
+}
+
+
+select.custom-select {
+    width: 40%;
+}
+
+input#daySearchs {
+    width: 50%;
+}
+.note-editable.card-block {
+    height: 200px;
+}

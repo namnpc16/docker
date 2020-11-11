@@ -1,0 +1,13 @@
+# Point to the path of your applications code on your host
+APP_CODE_PATH_HOST=../app
+PUID=1000
+GUID=1000
+
+# MySQL,
+MYSQL_VERSION=5.7.22
+MYSQL_HOST=dbhost
+MYSQL_DATABASE=laravel
+MYSQL_ROOT_USER=root
+MYSQL_ROOT_PASSWORD=root
+MYSQL_USER=dbuser1
+MYSQL_PASSWORD=dbuser1

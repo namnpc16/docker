@@ -1,0 +1,5 @@
+docker run --name php --network www-data -v C:\Users\archl\OneDrive\Desktop\NAM\PHP\:/usr/local/apache2/htdocs/ php:7.3-fpm
+
+docker run --rm -v C:\Users\archl\OneDrive\Desktop\NAM\PHP\:/usr/local/apache2/htdocs/ httpd cp /usr/local/apache2/conf/httpd.conf /usr/local/apache2/htdocs/
+
+docker run -it --name my-apache-app -p 9999:80 --network www-data -v C:\Users\archl\OneDrive\Desktop\NAM\PHP\:/usr/local/apache2/htdocs/ httpd:latest

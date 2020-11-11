@@ -1,0 +1,14 @@
+- interface:
+	+ tất cả các methods phải để public.
+	+ khai báo methods không cần định nghĩa.
+	+ class inheritance là implements.
+	+ tất cả các methods phải được định ở hết ở class kế thừa.
+- abstract:
+	+ không được khai báo các methods là private.
+	+ abstract không thể được khởi tạo đối tượng.
+	+ khai báo các methods như bình thường.
+	+ methods chứa từ khóa abstract ở đầu thì không cần định nghĩa mà sẽ định nghĩa ở class children.
+- trait:
+	+ khai báo các methods như bình thường.
+	+ class chứa từ khóa trait có thể gọi lại ở các class khác với từ khóa (use NameTrait).
+	

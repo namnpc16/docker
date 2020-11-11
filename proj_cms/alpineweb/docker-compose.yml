@@ -1,0 +1,30 @@
+version: '3'
+services:
+  alpineweb:
+    container_name: "alpineweb"
+    build:
+      context: "./alpine"
+      args:
+        - PUID=${PUID}
+        - PGID=${GUID}
+    ports:
+      - "8888:80"
+    volumes:
+      - ${APP_CODE_PATH_HOST}:/var/www/app
+    stdin_open: true
+    tty: true
+
+  mysqldb:
+    image: mysql:${MYSQL_VERSION}
+    container_name: ${MYSQL_HOST}
+    env_file:
+      - ".env"
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    ports:
+        - "33060:3306"
+    volumes:
+        - "./data/db/mysql:/var/lib/mysql"
